@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 
-
 function usePrevious(value) {
     const ref = useRef();
+
     useEffect(() => {
         ref.current = value;
     });
+
     return ref.current;
 }
 
@@ -24,9 +25,11 @@ export default function Todo(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
+
         if (!newName.trim()) {
             return;
         }
+
         props.editTask(props.id, newName);
         setNewName("");
         setEditing(false);
@@ -48,7 +51,6 @@ export default function Todo(props) {
                 />
             </div>
             <div className="btn-group">
-
                 <button
                     type="button"
                     className="btn todo-cancel"
@@ -57,6 +59,7 @@ export default function Todo(props) {
                     Cancel
                     <span className="visually-hidden">renaming {props.name}</span>
                 </button>
+
                 <button type="submit" className="btn btn__primary todo-edit">
                     Save
                     <span className="visually-hidden">new name for {props.name}</span>
@@ -87,6 +90,7 @@ export default function Todo(props) {
                 >
                     Edit <span className="visually-hidden">{props.name}</span>
                 </button>
+
                 <button
                     type="button"
                     className="btn btn__danger"
@@ -98,16 +102,15 @@ export default function Todo(props) {
         </div>
     );
 
-
     useEffect(() => {
         if (!wasEditing && isEditing) {
             editFieldRef.current.focus();
         }
+
         if (wasEditing && !isEditing) {
             editButtonRef.current.focus();
         }
     }, [wasEditing, isEditing]);
-
 
     return <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>;
 }
